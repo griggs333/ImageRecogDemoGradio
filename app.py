@@ -37,9 +37,26 @@ def classify(imgfile, model):
 
     return confidences
 
+with (gr.Blocks() as demo):
 
-img_input = gr.Image(label="Upload image", type='filepath')
-model_radio = gr.Radio(label="Model Selection", choices=['ResNet50', 'InceptionV3', 'Xception', 'MobileNetV2'], value='ResNet50')
-prediction_outputs = gr.Label(num_top_classes=5)
+    gr.Markdown("# <center>Image Classifer Demo </center>")
+    with gr.Row():
+        with gr.Column():
+            img_input = gr.Image(label="Upload image", type='filepath')
+            model_radio = gr.Radio(label="Model Selection", choices=['ResNet50', 'InceptionV3', 'Xception', 'MobileNetV2'], value='ResNet50')
+        with gr.Column():
+            prediction_outputs = gr.Label(num_top_classes=5, label="Top Class Predictions")
+    with gr.Row():
+        # with gr.Column():
+            btn = gr.Button(value="Submit", scale=0)
+        # with gr.Column():
+            clr_bt = gr.ClearButton(scale=0, components=[img_input, prediction_outputs])
 
-gr.Interface(fn=classify, inputs=[img_input, model_radio], outputs=prediction_outputs).launch()
+
+    btn.click(fn=classify, inputs=[img_input, model_radio], outputs=prediction_outputs)
+# img_input = gr.Image(label="Upload image", type='filepath')
+# model_radio = gr.Radio(label="Model Selection", choices=['ResNet50', 'InceptionV3', 'Xception', 'MobileNetV2'], value='ResNet50')
+# prediction_outputs = gr.Label(num_top_classes=5)
+
+# gr.Interface(fn=classify, inputs=[img_input, model_radio], outputs=prediction_outputs).launch()
+demo.launch()
