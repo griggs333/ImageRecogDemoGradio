@@ -11,7 +11,7 @@ import gradio as gr
 model_param_dict = {'ResNet50': ['ResNet50', 'resnet50', 224, 224],
                     'InceptionV3': ['InceptionV3', 'inception_v3', 299, 299],
                     'Xception': ['Xception', 'xception', 299, 299],
-                    'MobileNetV3': ['MobileNetV3', 'mobilenet_v3', 224, 224]}
+                    'MobileNetV2': ['MobileNetV2', 'mobilenet_v2', 224, 224]}
 
 
 
@@ -39,7 +39,7 @@ def classify(imgfile, model):
 
 
 img_input = gr.Image(label="Upload image", type='filepath')
-model_radio = gr.Radio(['ResNet50', 'InceptionV3', 'Xception', 'MobileNetV3'], value='ResNet50')
+model_radio = gr.Radio(label="Model Selection", choices=['ResNet50', 'InceptionV3', 'Xception', 'MobileNetV2'], value='ResNet50')
 prediction_outputs = gr.Label(num_top_classes=5)
 
 gr.Interface(fn=classify, inputs=[img_input, model_radio], outputs=prediction_outputs).launch()
