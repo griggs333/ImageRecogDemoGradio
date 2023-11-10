@@ -40,13 +40,13 @@ def classify(imgfile, model):
 with (gr.Blocks() as demo):
 
     gr.Markdown("# <center>Image Classifer Demo </center>")
-    with gr.Row():
+    with gr.Row(variant='panel'):
         with gr.Column():
             img_input = gr.Image(label="Upload image", type='filepath')
             model_radio = gr.Radio(label="Model Selection", choices=['ResNet50', 'InceptionV3', 'Xception', 'MobileNetV2'], value='ResNet50')
         with gr.Column():
             prediction_outputs = gr.Label(num_top_classes=5, label="Top Class Predictions")
-    with gr.Row():
+    with gr.Row(variant='panel'):
         # with gr.Column():
             btn = gr.Button(value="Submit", scale=0)
         # with gr.Column():
@@ -54,9 +54,5 @@ with (gr.Blocks() as demo):
 
 
     btn.click(fn=classify, inputs=[img_input, model_radio], outputs=prediction_outputs)
-# img_input = gr.Image(label="Upload image", type='filepath')
-# model_radio = gr.Radio(label="Model Selection", choices=['ResNet50', 'InceptionV3', 'Xception', 'MobileNetV2'], value='ResNet50')
-# prediction_outputs = gr.Label(num_top_classes=5)
 
-# gr.Interface(fn=classify, inputs=[img_input, model_radio], outputs=prediction_outputs).launch()
 demo.launch()
