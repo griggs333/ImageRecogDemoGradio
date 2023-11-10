@@ -50,6 +50,9 @@ with (gr.Blocks() as demo):
             btn = gr.Button(value="Submit", scale=0)
             clr_bt = gr.ClearButton(scale=0, components=[img_input, prediction_outputs])
 
+    with gr.Row(variant='panel'):
+        gr.Examples(examples='examples', inputs=img_input)
+
     btn.click(fn=classify, inputs=[img_input, model_radio], outputs=prediction_outputs)
 
 
